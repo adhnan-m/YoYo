@@ -1,0 +1,44 @@
+# Amazon Affiliate Website - Task Breakdown
+
+## Phase 1: Project Setup
+- [ ] Initialize Next.js 14+ project with App Router and TailwindCSS
+- [ ] Configure project structure (`/app`, `/components`, `/lib`, `/models`, `/utils`)
+- [ ] Setup environment files (`.env.example`, `.env.local`)
+- [ ] Install dependencies (mongoose, next-auth, bcrypt, zod, cloudinary, etc.)
+
+## Phase 2: Database & Models
+- [ ] Setup MongoDB connection (`/lib/mongodb.ts`)
+- [ ] Create Mongoose models (Product, Category, Subscriber, Admin)
+- [ ] Create seed script
+
+## Phase 3: Authentication
+- [ ] Setup NextAuth.js with JWT + Credentials provider
+- [ ] Create login API route
+- [ ] Create middleware for admin route protection
+- [ ] Build login page UI
+
+## Phase 4: Admin Panel
+- [ ] Admin dashboard with stats
+- [ ] Product CRUD (create, edit, delete, list)
+- [ ] Category CRUD
+- [ ] Subscriber management (view, delete, export CSV)
+- [ ] Cloudinary image upload integration
+
+## Phase 5: Public Website
+- [ ] Homepage (featured products, trending deals, categories, newsletter)
+- [ ] Product page (`/product/[slug]`) with click tracking, JSON-LD
+- [ ] Category page (`/category/[slug]`) with filtering, search, pagination
+- [ ] Layout, header, footer, dark/light mode toggle
+
+## Phase 6: Security & Polish
+- [ ] Rate limiting on login
+- [ ] Input validation with Zod
+- [ ] Secure headers
+- [ ] Loading & error states
+- [ ] Mobile responsive design
+- [ ] SEO metadata
+
+## Phase 7: Documentation & Deployment
+- [ ] README.md with full setup guide
+- [ ] Vercel deployment instructions
+- [ ] Final review

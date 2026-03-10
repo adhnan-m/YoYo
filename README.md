@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# YoYo Deals — Amazon Affiliate Website
+
+A production-ready Amazon affiliate website built with **Next.js 14+ (App Router)**, **TailwindCSS**, **MongoDB Atlas**, **NextAuth.js**, and **Cloudinary**.
+
+## Features
+
+- 🏠 **Public Storefront** — Homepage, product pages, category pages with search/sort/pagination
+- 🛡️ **Admin Panel** — Full product/category/subscriber CRUD with sidebar navigation
+- 🔐 **Authentication** — NextAuth.js with JWT, rate-limited login
+- 🌙 **Dark/Light Mode** — System-aware with manual toggle
+- 📊 **Click Tracking** — Track affiliate link clicks per product
+- 📧 **Newsletter** — Email subscription with CSV export
+- 🖼️ **Cloudinary** — Image upload with auto-optimization
+- 🔍 **SEO** — JSON-LD structured data, meta tags, semantic HTML
+- 🔒 **Security** — Rate limiting, Zod validation, secure headers, XSS/CSRF protection
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- MongoDB Atlas account
+- Cloudinary account (for image uploads)
+
+### 1. Install dependencies
+
+```bash
+npm install
+```
+
+### 2. Configure environment
+
+Copy `.env.example` to `.env.local` and fill in your values:
+
+```bash
+cp .env.example .env.local
+```
+
+Required variables:
+| Variable | Description |
+|---|---|
+| `MONGODB_URI` | MongoDB Atlas connection string |
+| `NEXTAUTH_URL` | Your site URL (e.g. `http://localhost:3000`) |
+| `NEXTAUTH_SECRET` | Random secret for JWT signing |
+| `CLOUDINARY_CLOUD_NAME` | Cloudinary cloud name |
+| `CLOUDINARY_API_KEY` | Cloudinary API key |
+| `CLOUDINARY_API_SECRET` | Cloudinary API secret |
+| `ADMIN_EMAIL` | Admin email for seed script |
+| `ADMIN_PASSWORD` | Admin password for seed script |
+
+### 3. Seed the database
+
+```bash
+npx tsx scripts/seed.ts
+```
+
+This creates:
+- 5 sample categories
+- 8 sample products
+- 1 admin user
+
+### 4. Run development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Admin Panel
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Go to [http://localhost:3000/admin/login](http://localhost:3000/admin/login) and log in with the credentials from your `.env.local`.
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+├── app/
+│   ├── admin/          # Admin panel (login, dashboard, products, categories, subscribers)
+│   ├── api/            # API routes (auth, admin CRUD, newsletter, click tracking, upload)
+│   ├── category/       # Category pages
+│   ├── product/        # Product detail pages
+│   ├── layout.tsx      # Root layout
+│   └── page.tsx        # Homepage
+├── components/         # Shared components (Header, Footer, ProductCard, Newsletter, etc.)
+├── lib/                # Utilities (MongoDB, auth, rate-limit, validations)
+├── models/             # Mongoose models (Product, Category, Subscriber, Admin)
+└── scripts/            # Seed script
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment (Vercel)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Push to GitHub
+2. Import project in [Vercel](https://vercel.com)
+3. Add all environment variables from `.env.local` to Vercel project settings
+4. Deploy
 
-## Deploy on Vercel
+## Tech Stack
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Technology | Purpose |
+|---|---|
+| Next.js 14+ | Full-stack React framework |
+| TailwindCSS | Utility-first CSS |
+| MongoDB Atlas | Database |
+| Mongoose | ODM |
+| NextAuth.js | Authentication |
+| Cloudinary | Image hosting |
+| Zod | Input validation |
+| bcryptjs | Password hashing |

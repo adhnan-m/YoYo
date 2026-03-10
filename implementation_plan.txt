@@ -1,0 +1,153 @@
+# Amazon Affiliate Website - Implementation Plan
+
+Build a production-ready Amazon affiliate website with admin panel using Next.js 14+ (App Router), TailwindCSS, MongoDB Atlas, NextAuth.js, and Cloudinary. Designed for Vercel deployment via GitHub.
+
+## Proposed Changes
+
+### Phase 1: Project Scaffolding
+
+#### [NEW] Project initialization
+- `npx create-next-app@latest ./` with TypeScript, TailwindCSS, App Router, ESLint
+- Install deps: `mongoose`, `next-auth`, `bcryptjs`, `zod`, `cloudinary`, `next-cloudinary`, `react-icons`, `slugify`
+
+#### [NEW] `.env.example`
+Template for all required env vars (MongoDB URI, NextAuth secret, Cloudinary keys, etc.)
+
+---
+
+### Phase 2: Database & Models
+
+#### [NEW] `lib/mongodb.ts`
+Cached MongoDB connection using Mongoose (serverless-safe pattern).
+
+#### [NEW] `models/Product.ts`
+Fields: name, slug, description, categoryId, price, imageUrl, affiliateUrl, featured, clicks, createdAt.
+
+#### [NEW] `models/Category.ts`
+Fields: name, slug, createdAt.
+
+#### [NEW] `models/Subscriber.ts`
+Fields: email, createdAt.
+
+#### [NEW] `models/Admin.ts`
+Fields: email, password (hashed), role, createdAt.
+
+#### [NEW] `scripts/seed.ts`
+Seeds DB with sample categories, products, and admin user.
+
+---
+
+### Phase 3: Authentication
+
+#### [NEW] `lib/auth.ts`
+NextAuth config with Credentials provider + JWT strategy.
+
+#### [NEW] `app/api/auth/[...nextauth]/route.ts`
+NextAuth route handler.
+
+#### [NEW] `middleware.ts`
+Protects `/admin/*` routes (except `/admin/login`).
+
+#### [NEW] `app/admin/login/page.tsx`
+Login page with form, error handling, dark/light mode.
+
+---
+
+### Phase 4: Admin Panel
+
+#### [NEW] `app/admin/layout.tsx`
+Admin layout with sidebar navigation.
+
+#### [NEW] `app/admin/page.tsx`
+Dashboard: stats cards (total products, categories, subscribers, clicks), recent products.
+
+#### [NEW] `app/api/admin/stats/route.ts`
+API: aggregated dashboard stats.
+
+#### [NEW] `app/admin/products/page.tsx` + `app/admin/products/new/page.tsx` + `app/admin/products/[id]/edit/page.tsx`
+Product CRUD pages.
+
+#### [NEW] `app/api/admin/products/route.ts` + `app/api/admin/products/[id]/route.ts`
+Product CRUD API routes with Zod validation.
+
+#### [NEW] `app/admin/categories/page.tsx`
+Category management page.
+
+#### [NEW] `app/api/admin/categories/route.ts` + `app/api/admin/categories/[id]/route.ts`
+Category CRUD API routes.
+
+#### [NEW] `app/admin/subscribers/page.tsx`
+Subscriber list with delete & CSV export.
+
+#### [NEW] `app/api/admin/subscribers/route.ts`
+Subscriber API routes.
+
+#### [NEW] `app/api/upload/route.ts`
+Cloudinary image upload endpoint.
+
+---
+
+### Phase 5: Public Website
+
+#### [NEW] `app/layout.tsx`
+Root layout with dark/light mode, fonts, metadata.
+
+#### [NEW] `app/page.tsx`
+Homepage: hero, featured products, categories, newsletter.
+
+#### [NEW] `app/product/[slug]/page.tsx`
+Product detail: image, info, affiliate button (rel="sponsored noopener noreferrer"), JSON-LD, click tracking, related products.
+
+#### [NEW] `app/category/[slug]/page.tsx`
+Category page: search, filter, pagination.
+
+#### [NEW] `app/api/products/[slug]/click/route.ts`
+Click tracking API.
+
+#### [NEW] `app/api/newsletter/route.ts`
+Newsletter signup API.
+
+#### [NEW] Components
+- `components/Header.tsx` - Nav with dark mode toggle
+- `components/Footer.tsx`
+- `components/ProductCard.tsx`
+- `components/ThemeProvider.tsx`
+- `components/Newsletter.tsx`
+
+---
+
+### Phase 6: Security
+
+#### [NEW] `lib/rate-limit.ts`
+In-memory rate limiting for login endpoint.
+
+#### Zod validation schemas in `lib/validations.ts`
+Input validation for all API routes.
+
+#### Secure headers in `next.config.js`
+
+---
+
+### Phase 7: Documentation
+
+#### [NEW] `README.md`
+Setup guide, env vars, MongoDB Atlas setup, Vercel deployment instructions.
+
+## Verification Plan
+
+### Automated Tests
+- Run `npm run build` to verify zero build errors and all pages compile
+- Run the seed script to verify DB models and connections work
+
+### Manual Verification (Browser)
+1. Start dev server (`npm run dev`), open http://localhost:3000
+2. Homepage: Verify hero section, featured products, categories, newsletter form renders
+3. Product page: Click a product -> verify slug page loads with image, price, affiliate button
+4. Category page: Navigate to category -> verify product list, search, pagination
+5. Admin login: Go to /admin/login -> login with seeded admin credentials
+6. Admin dashboard: Verify stats cards display
+7. Product CRUD: Create, edit, delete a product
+8. Dark/light mode: Toggle theme and verify styling
+9. Mobile: Resize browser to verify responsive layout
+
+NOTE: Cloudinary upload requires valid API keys. Image upload will be tested manually after env vars are configured.
