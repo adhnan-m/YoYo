@@ -153,16 +153,16 @@ export default async function ProductPage({ params }: ProductPageProps) {
                             {/* Price */}
                             <div className="flex items-baseline gap-3 mb-6">
                                 <span className="text-4xl font-bold text-slate-900 dark:text-white">
-                                    ${product.price.toFixed(2)}
+                                    ₹{product.price.toFixed(2)}
                                 </span>
                                 {product.originalPrice && (
                                     <span className="text-xl text-slate-400 line-through">
-                                        ${product.originalPrice.toFixed(2)}
+                                        ₹{product.originalPrice.toFixed(2)}
                                     </span>
                                 )}
                                 {discount > 0 && (
                                     <span className="px-3 py-1 bg-green-100 dark:bg-green-500/10 text-green-700 dark:text-green-400 text-sm font-semibold rounded-lg">
-                                        You save ${(product.originalPrice - product.price).toFixed(2)}
+                                        You save ₹{(product.originalPrice - product.price).toFixed(2)}
                                     </span>
                                 )}
                             </div>

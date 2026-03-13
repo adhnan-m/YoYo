@@ -122,7 +122,7 @@ export default function ProductsPage() {
                                                 {product.categoryId?.name || 'N/A'}
                                             </span>
                                         </td>
-                                        <td className="py-4 px-6 text-sm text-slate-600 dark:text-slate-300">${product.price.toFixed(2)}</td>
+                                        <td className="py-4 px-6 text-sm text-slate-600 dark:text-slate-300">₹{product.price.toFixed(2)}</td>
                                         <td className="py-4 px-6 text-sm text-slate-600 dark:text-slate-300">{product.clicks}</td>
                                         <td className="py-4 px-6">
                                             <div className="flex items-center gap-2">

@@ -102,7 +102,7 @@ export default function AdminDashboard() {
                                     className="border-b last:border-0 border-slate-100 dark:border-slate-700/50 hover:bg-slate-50 dark:hover:bg-slate-700/25 transition-colors"
                                 >
                                     <td className="py-4 px-6 text-sm font-medium text-slate-800 dark:text-white">{product.name}</td>
-                                    <td className="py-4 px-6 text-sm text-slate-600 dark:text-slate-300">${product.price.toFixed(2)}</td>
+                                    <td className="py-4 px-6 text-sm text-slate-600 dark:text-slate-300">₹{product.price.toFixed(2)}</td>
                                     <td className="py-4 px-6 text-sm text-slate-600 dark:text-slate-300">{product.clicks}</td>
                                     <td className="py-4 px-6 text-sm text-slate-500 dark:text-slate-400">
                                         {new Date(product.createdAt).toLocaleDateString()}
