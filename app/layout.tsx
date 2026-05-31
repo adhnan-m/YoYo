@@ -18,6 +18,9 @@ export const metadata: Metadata = {
     description: "Discover the best deals on top-rated products.",
     type: "website",
   },
+  other: {
+    'impact-site-verification': '63e795de-a518-4d3f-aa70-d57bab949e20',
+  },
 };
 
 export default function RootLayout({
