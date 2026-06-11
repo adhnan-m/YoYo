@@ -38,7 +38,7 @@ async function getCategoryProducts(
     if (sort === 'popular') sortOption = { clicks: -1 };
     if (sort === 'rating') sortOption = { rating: -1 };
 
-    const limit = 12;
+    const limit = 32;
     const [products, total] = await Promise.all([
         Product.find(query)
             .sort(sortOption)
@@ -114,7 +114,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
                                 type="text"
                                 defaultValue={search}
                                 placeholder="Search in this category..."
-                                className="flex-1 sm:w-72 px-4 py-2.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="flex-1 sm:w-72 px-4 py-2.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-800 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
                             />
                             <button
                                 type="submit"
